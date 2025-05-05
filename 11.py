@@ -1,8 +1,13 @@
+# Список товаров
 products = []
-next_id = 1
+next_id = 1  # Счётчик ID
 
 
 def add_product():
+    """
+    Добавляет новый товар в список.
+    Проверяет корректность ввода цены и количества.
+    """
     global next_id
     print("\n--- Добавление нового товара ---")
     name = input("Введите название товара: ")
@@ -31,6 +36,10 @@ def add_product():
 
 
 def view_products():
+    """
+    Отображает все товары из списка.
+    Если список пуст — выводит соответствующее сообщение.
+    """
     print("\n--- Список товаров ---")
     if not products:
         print("Склад пуст.")
@@ -48,6 +57,10 @@ def view_products():
 
 
 def edit_product():
+    """
+    Редактирует существующий товар по его ID.
+    Предупреждает пользователя, если поле оставлено пустым.
+    """
     view_products()
     try:
         product_id = int(input("Введите ID товара для редактирования: "))
@@ -62,28 +75,38 @@ def edit_product():
             name = input(f"Новое название [{product['name']}]: ")
             if name:
                 product['name'] = name
+            else:
+                print("Имя не изменено — введена пустая строка.")
 
             category = input(f"Новая категория [{product['category']}]: ")
             if category:
                 product['category'] = category
+            else:
+                print("Категория не изменена — введена пустая строка.")
 
             supplier = input(f"Новый поставщик [{product['supplier']}]: ")
             if supplier:
                 product['supplier'] = supplier
+            else:
+                print("Поставщик не изменён — введена пустая строка.")
 
             price_input = input(f"Новая цена [{product['price']}]: ")
             if price_input:
                 try:
                     product['price'] = float(price_input)
                 except ValueError:
-                    print("Ошибка: неверный формат цены.")
+                    print("Ошибка: неверный формат цены — значение не изменено.")
+            else:
+                print("Цена не изменена — введена пустая строка.")
 
             quantity_input = input(f"Новое количество [{product['quantity']}]: ")
             if quantity_input:
                 try:
                     product['quantity'] = int(quantity_input)
                 except ValueError:
-                    print("Ошибка: неверный формат количества.")
+                    print("Ошибка: неверный формат количества — значение не изменено.")
+            else:
+                print("Количество не изменено — введена пустая строка.")
 
             print("Данные обновлены.")
             return
@@ -92,6 +115,10 @@ def edit_product():
 
 
 def delete_product():
+    """
+    Удаляет товар по ID.
+    Выводит сообщение об успешном удалении или ошибке.
+    """
     view_products()
     try:
         product_id = int(input("Введите ID товара для удаления: "))
@@ -109,6 +136,10 @@ def delete_product():
 
 
 def module_menu():
+    """
+    Главное меню модуля.
+    Позволяет пользователю выбрать действие.
+    """
     while True:
         print("=== Модуль управления товарами ===")
         print("1. Добавить товар")
@@ -133,5 +164,6 @@ def module_menu():
             print("Неверный выбор. Попробуйте снова.")
 
 
+# Для тестирования запускаем модуль напрямую
 if __name__ == "__main__":
     module_menu()
